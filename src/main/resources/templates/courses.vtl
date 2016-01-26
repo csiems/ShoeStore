@@ -1,0 +1,14 @@
+<table class="table table-hover sortable" id="taskTable">
+  <thead>
+    <tr>
+      <th>Course</th>
+    </tr>
+  </thead>
+  <tbody>
+    #foreach ($course in $courses)
+    <tr>
+      <td><a href="/courses/$course.getId()">$course.getName()</a></td>
+    </tr>
+      #end
+  </tbody>
+</table>

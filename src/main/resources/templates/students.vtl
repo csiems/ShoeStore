@@ -1,0 +1,24 @@
+<table class="table table-hover sortable" id="taskTable">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Enrollment Date</th>
+      <th>Courses</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      #foreach ($task in $tasks)
+
+        <td><a href="/students/$student.getId()">$student.getDescription()</a></td>
+        <td><a href="/students/$student.getId()">$student.getEnrollmentDate</a></td>
+
+        #if (!($student.getCourses().size() == 0))
+          <td><a href="/students/$student.getId()">$student.getCourseNames()</a></td>
+        #else
+          <td></td>
+        #end
+    </tr>
+      #end
+  </tbody>
+</table>

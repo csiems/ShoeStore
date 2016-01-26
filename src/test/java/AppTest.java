@@ -22,6 +22,30 @@ public class AppTest extends FluentTest {
   @Rule
   public DatabaseRule database = new DatabaseRule();
 
-  
+  @Test
+      public void rootTest() {
+        goTo("http://localhost:4567/");
+        assertThat(pageSource()).contains("University Registrar");
+      }
+
+    @Test
+    public void courseIsCreatedTest() {
+      goTo("http://localhost:4567/");
+      fill("#course-name").with("Intro to Chemistry", "Twain");
+      submit("#course");
+      assertThat(pageSource()).contains("Intro to Chemistry");
+    }
+
+    @Test
+    public void multipleCoursesAreCreated() {
+      Course myFirstCourse = new Course("Intro to Chemistry", "Twain");
+      myFirstCourse.save();
+      Course mySecondCourse = new Course("Applied Mathematics", "Faulkner");
+      mySecondCourse.save();
+      goTo("http://localhost:4567/courses");
+      assertThat(pageSource()).contains("Intro to Chemistry");
+      assertThat(pageSource()).contains("Applied Mathematics");
+    }
+
 
 }

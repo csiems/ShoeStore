@@ -1,0 +1,30 @@
+<h1>$course.getName()</h1>
+
+
+#if($course.getStudents())
+  <p>Here are the students for this course:</p>
+  <table class="table table-hover sortable" id="courseTable">
+    <tbody>
+      #foreach ($student in $course.getStudents())
+        <tr>
+          <td>$student.getName()</td>
+        </tr>
+      #end
+    </tbody>
+  </table>
+#end
+<hr>
+
+<form action="/update_course" method="post">
+    <input id="course_id" name="course_id" type="hidden" value="$course.getId()">
+    <label for="name">Update this course:</label>
+    <input id="name" name="name" type="text">
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+<hr>
+
+<form action='/delete_course' method='post'>
+    <input id="course_id" name="course_id" type="hidden" value="$course.getId()">
+    <label for="delete_course">Remove this course:</label>
+    <button type='submit' id="delete_course" class="btn btn-danger">DELETE </button>
+</form>
