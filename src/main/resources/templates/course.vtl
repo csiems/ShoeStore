@@ -1,4 +1,5 @@
 <h1>$course.getName()</h1>
+<h3>Teacher: $course.getTeacher()</h3>
 
 
 #if($course.getStudents())
@@ -15,11 +16,31 @@
 #end
 <hr>
 
-<form action="/update_course" method="post">
+<form action='/add_students' method='post'>
+    <input id="course_id" name="course_id" type="hidden" value="$course.getId()">
+    <label for="student_id">Select a student:</label>
+    <select id='student_id' name='student_id' type='text'>
+      #foreach($student in $students)
+        <option value="$student.getId()">$student.getName()</option>
+      #end
+    </select>
+    <button type='submit' class='btn btn-default'>Add student</button>
+</form>
+<hr>
+
+<form action="/update_course_name" method="post">
     <input id="course_id" name="course_id" type="hidden" value="$course.getId()">
     <label for="name">Update this course:</label>
     <input id="name" name="name" type="text">
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" id="name-update" class="btn btn-default">Submit</button>
+</form>
+<hr>
+
+<form action="/update_course_teacher" method="post">
+    <input id="course_id" name="course_id" type="hidden" value="$course.getId()">
+    <label for="teacher">Update this course:</label>
+    <input id="teacher" name="teacher" type="text">
+  <button type="submit" id="teacher-update" class="btn btn-default">Submit</button>
 </form>
 <hr>
 

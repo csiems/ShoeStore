@@ -63,6 +63,12 @@ public class Course {
         .addParameter("id", this.id)
         .executeUpdate();
     }
+    sql = "DELETE FROM courses_students WHERE course_id = :id";
+    try (Connection con = DB.sql2o.open()) {
+      con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeUpdate();
+    }
   }
 
   public void updateName(String name) {
@@ -90,13 +96,21 @@ public class Course {
     }
   }
 
-  public void assign(Student student) {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO courses_students (student_id, course_id) VALUES (:student_id, :course_id)";
-        con.createQuery(sql)
-          .addParameter("student_id", student.getId())
-          .addParameter("course_id", this.id)
-          .executeUpdate();
+  public void assign(Student newStudent) {
+    boolean isDuplicate = false;
+    for (Student student : this.getStudents()) {
+      if (student.equals(newStudent)) {
+        isDuplicate = true;
+      }
+    }
+    if (!isDuplicate) {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "INSERT INTO courses_students (student_id, course_id) VALUES (:student_id, :course_id)";
+          con.createQuery(sql)
+            .addParameter("student_id", newStudent.getId())
+            .addParameter("course_id", this.id)
+            .executeUpdate();
+      }
     }
   }
 
