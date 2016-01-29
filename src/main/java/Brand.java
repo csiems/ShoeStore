@@ -82,4 +82,33 @@ public class Brand {
         .executeUpdate();
     }
   }
+
+  public void add(Store newStore) {
+    boolean isDuplicate = false;
+    for (Store store : this.getStores()) {
+      if (store.equals(newStore)) {
+        isDuplicate = true;
+      }
+    }
+    if(!isDuplicate) {
+      try (Connection con = DB.sql2o.open()) {
+        String sql = "INSERT INTO brands_stores (brand_id, store_id) VALUES (:brand_id, :store_id)";
+        con.createQuery(sql)
+          .addParameter("brand_id", mId)
+          .addParameter("store_id", newStore.getId())
+          .executeUpdate();
+      }
+    }
+  }
+
+  public List<Store> getStores() {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "SELECT stores.id AS mId, stores.name AS mName FROM stores " +
+                          "INNER JOIN brands_stores ON (stores.id = brands_stores.store_id) " +
+                          "INNER JOIN brands ON (brands_stores.brand_id = brands.id) WHERE brands.id = :id";
+      return con.createQuery(sql)
+        .addParameter("id", mId)
+        .executeAndFetch(Store.class);
+    }
+  }
 }

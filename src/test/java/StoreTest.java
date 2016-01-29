@@ -38,5 +38,14 @@ public class StoreTest {
     assertEquals("Nike Employee Store", Store.find(store.getId()).getName());
   }
 
+  @Test
+  public void add_brandIsAddedToStore() {
+    Brand brand = new Brand("Waffle Racer");
+    brand.save();
+    Store store = new Store("Nike Employee Store");
+    store.save();
+    store.add(brand);
+    assertEquals(1, store.getBrands().size());
+  }
 
 }

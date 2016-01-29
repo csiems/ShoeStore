@@ -38,5 +38,15 @@ public class BrandTest {
     assertEquals("Pegasus '83", Brand.find(brand.getId()).getName());
   }
 
+  @Test
+  public void add_storeIsAddedToBrand() {
+    Brand brand = new Brand("Waffle Racer");
+    brand.save();
+    Store store = new Store("Nike Employee Store");
+    store.save();
+    brand.add(store);
+    assertEquals(1, brand.getStores().size());
+  }
+
 
 }
