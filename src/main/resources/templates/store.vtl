@@ -23,13 +23,34 @@
 </nav>
 
 <div class="container">
-    <h1>A list of brands available at $store.getName():</h1>
-    <table class="table table-hover sortable" id="taskTable">
-      <tbody>
-        #foreach ($brand in $store.getBrands())
-          <tr><td><a href="/brands/$brand.getId()">$brand.getName()</a></td></tr>
-        #end
-      </tbody>
-    </table>
+  <h1>A list of brands available at $store.getName():</h1>
+  <table class="table table-hover sortable" id="taskTable">
+    <tbody>
+      #foreach ($brand in $store.getBrands())
+        <tr><td><a href="/brands/$brand.getId()">$brand.getName()</a></td></tr>
+      #end
+    </tbody>
+  </table>
+  <hr>
+
+  <form action='/stores/$store.getId()/addbrand' method='post'>
+    <input id="addbrand-store-id" name="addbrand-store-id" type="hidden" value="$store.getId()">
+    <label for="addbrand-brand-id">Select a brand to add to this $store.getName():</label>
+    <select id='addbrand-brand-id' name='addbrand-brand-id' type='text'>
+      #foreach($brand in $brands)
+        <option value="$brand.getId()">$brand.getName()</option>
+      #end
+    </select>
+    <button type='submit' class='btn btn-default addbrandbtn'>Add Brand</button>
+  </form>
+  <hr>
+
+  <form action="/stores/deletestore" method="post">
+    <div class="form-group">
+      <input id="store-id" class="form-control" name="store-id" type="hidden" value="$store.getId()">
+      <label for="store-delete-btn">Delete the $store.getName() from the database.</label>
+      <button type="submit" class="btn btn-danger deletebtn">Delete</button>
+    </div>
+  </form>
 
 </div>

@@ -83,10 +83,10 @@ public class Brand {
     }
   }
 
-  public void add(Store newStore) {
+  public void add(int storeId) {
     boolean isDuplicate = false;
     for (Store store : this.getStores()) {
-      if (store.equals(newStore)) {
+      if (store.equals(Store.find(storeId))) {
         isDuplicate = true;
       }
     }
@@ -94,8 +94,8 @@ public class Brand {
       try (Connection con = DB.sql2o.open()) {
         String sql = "INSERT INTO brands_stores (brand_id, store_id) VALUES (:brand_id, :store_id)";
         con.createQuery(sql)
+          .addParameter("store_id", storeId)
           .addParameter("brand_id", mId)
-          .addParameter("store_id", newStore.getId())
           .executeUpdate();
       }
     }

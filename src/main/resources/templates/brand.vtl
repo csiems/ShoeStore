@@ -31,4 +31,25 @@
         #end
       </tbody>
     </table>
+    <hr>
+
+    <form action='/brands/$brand.getId()/addstore' method='post'>
+      <input id="addstore-brand-id" name="addstore-brand-id" type="hidden" value="$brand.getId()">
+      <label for="store_id">Select a store to add the $brand.getName() to:</label>
+      <select id='addstore-store-id' name='addstore-store-id' type='text'>
+        #foreach($store in $stores)
+          <option value="$store.getId()">$store.getName()</option>
+        #end
+      </select>
+      <button type='submit' class='btn btn-default addbrandbtn'>Add Store</button>
+    </form>
+    <hr>
+
+    <form action="/brands/deletebrand" method="post">
+      <div class="form-group">
+        <input id="brand-id" class="form-control" name="brand-id" type="hidden" value="$brand.getId()">
+        <label for="brand-delete-btn">Delete the $brand.getName() from the database.</label>
+        <button type="submit" class="btn btn-danger deletebtn">Delete</button>
+      </div>
+    </form>
 </div>

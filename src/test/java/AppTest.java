@@ -1,6 +1,7 @@
 import org.fluentlenium.adapter.FluentTest;
 import org.junit.ClassRule;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.junit.Rule;
@@ -43,6 +44,37 @@ public class AppTest extends FluentTest {
     submit(".btn");
     assertThat(pageSource()).contains("Waffle Racer");
   }
+
+  @Test
+  public void brandIsDeletedTest() {
+    Brand brand = new Brand("Waffle Racer");
+    brand.save();
+    goTo("http://localhost:4567/brands/" + brand.getId());
+    submit(".deletebtn");
+    assertEquals(0, Brand.all().size());
+  }
+
+  @Test
+  public void storeIsDeletedTest() {
+    Store store = new Store("Nike Outlet");
+    store.save();
+    goTo("http://localhost:4567/stores/" + store.getId());
+    submit(".deletebtn");
+    assertEquals(0, Store.all().size());
+  }
+
+  @Test
+  public void brandIsAddedToStore() {
+    Store store = new Store("Nike Outlet");
+    store.save();
+    Brand brand = new Brand("Waffle Racer");
+    brand.save();
+    goTo("http://localhost:4567/stores/" + store.getId());
+    submit("addbrandbtn");
+    assertThat(pageSource()).contains("Waffle Racer");
+  }
+
+
 
 
 }

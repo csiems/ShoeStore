@@ -44,7 +44,7 @@ public class StoreTest {
     brand.save();
     Store store = new Store("Nike Employee Store");
     store.save();
-    store.add(brand);
+    store.add(brand.getId());
     assertEquals(1, store.getBrands().size());
   }
 
