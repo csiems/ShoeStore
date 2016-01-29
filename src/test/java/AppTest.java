@@ -70,9 +70,43 @@ public class AppTest extends FluentTest {
     Brand brand = new Brand("Waffle Racer");
     brand.save();
     goTo("http://localhost:4567/stores/" + store.getId());
+    click("option", withText("Waffle Racer"));
     submit("addbrandbtn");
     assertThat(pageSource()).contains("Waffle Racer");
   }
+
+  @Test
+  public void storeIsAddedToBrand() {
+    Store store = new Store("Nike Outlet");
+    store.save();
+    Brand brand = new Brand("Waffle Racer");
+    brand.save();
+    goTo("http://localhost:4567/brands/" + brand.getId());
+    click("option", withText("Nike Outlet"));
+    submit("addstorebtn");
+    assertThat(pageSource()).contains("Waffle Racer");
+  }
+
+  @Test
+  public void storeNameIsUpdated() {
+    Store store = new Store("Nike Outlet");
+    store.save();
+    goTo("http://localhost:4567/stores/" + store.getId());
+    fill("#update-store-name").with("Nike Employee Store");
+    submit("storeupdatebtn");
+    assertThat(pageSource()).contains("Nike Employee Store");
+  }
+
+  @Test
+  public void brandNameIsUpdated() {
+    Brand brand = new Brand("Waffle Racer");
+    brand.save();
+    goTo("http://localhost:4567/brands/" + brand.getId());
+    fill("#update-brand-name").with("Nike Air Pegasus");
+    submit("brandupdatebtn");
+    assertThat(pageSource()).contains("Nike Air Pegasus");
+  }
+
 
 
 

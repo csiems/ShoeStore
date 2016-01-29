@@ -45,6 +45,15 @@
   </form>
   <hr>
 
+  <form action="/stores/$store.getId()/update" method="post">
+    <div class="form-group">
+      <label for="update-store-name">Update the name of this store:</label>
+      <input id="update-store-name" class="form-control" name="update-store-name" type="text" placeholder="New Store Name" required>
+    </div>
+    <button type="submit" class="btn btn-default storeupdatebtn">Submit</button>
+  </form>
+  <hr>
+
   <form action="/stores/deletestore" method="post">
     <div class="form-group">
       <input id="store-id" class="form-control" name="store-id" type="hidden" value="$store.getId()">
