@@ -13,10 +13,52 @@ public class App {
     String layout = "templates/layout.vtl";
 
     get("/", (request, response) -> {
+      response.redirect("/stores");
+      return null;
+    });
+
+    get("/stores", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
-      model.put("template", "templates/index.vtl");
+      model.put("stores", Store.all());
+      model.put("template", "templates/stores.vtl");
+
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    get("/stores/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("store", Store.find(Integer.parseInt(request.params("id"))));
+      model.put("template", "templates/store.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/stores/addstore", (request, response) -> {
+      Store store = new Store(request.queryParams("store-name"));
+      store.save();
+      response.redirect("/stores/" + store.getId());
+      return null;
+    });
+
+    get("/brands", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/brands.vtl");
+      model.put("brands", Brand.all());
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/brands/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("brand", Brand.find(Integer.parseInt(request.params("id"))));
+      model.put("template", "templates/brand.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/brands/addbrand", (request, response) -> {
+      Brand brand = new Brand(request.queryParams("brand-name"));
+      brand.save();
+      response.redirect("/brands/" + brand.getId());
+      return null;
+    });
 
 
   }
