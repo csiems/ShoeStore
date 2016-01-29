@@ -10,7 +10,7 @@ public class StoreTest {
 
   @Test
   public void all_emptyAtFirst() {
-    assertEquals(Store.all().size(), 0);
+    assertEquals(0, Store.all().size());
   }
 
   @Test
@@ -20,6 +20,22 @@ public class StoreTest {
     Store savedStore = Store.find(store.getId());
     assertEquals("Nike Outlet", store.getName());
     assert(store.equals(savedStore));
+  }
+
+  @Test
+  public void delete_storeIsDeleted() {
+    Store store = new Store("Nike Outlet");
+    store.save();
+    store.delete();
+    assertEquals(0, Store.all().size());
+  }
+
+  @Test
+  public void update_storeNameIsUpdated() {
+    Store store = new Store("Nike Outlet");
+    store.save();
+    store.update("Nike Employee Store");
+    assertEquals("Nike Employee Store", Store.find(store.getId()).getName());
   }
 
 
