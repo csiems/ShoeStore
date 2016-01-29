@@ -1,13 +1,12 @@
-#To-Do using Databases
+#Shoe Store Code Review
 
-#### Revisiting a simple Java to-do list using databases
-#### January 18, 2016.
+#### January 29, 2016.
 
-#### By Kassidy Douglas
+#### By Chris Siems
 
 ## Description
 
-This repository is a homework exercise to aid in learning the basics about using databases in relation to Java applications.
+
 
 ## Setup/Installation Requirements
 
