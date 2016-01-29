@@ -23,50 +23,54 @@
 </nav>
 
 <div class="container">
-  <h1>$brand.getName()</h1>
-  <h3>A list of stores that carry the $brand.getName():</h3>
-  <table class="table table-hover sortable" id="taskTable">
-    <tbody>
-      #foreach ($store in $brand.getStores())
-        <tr>
-          <td><a href="/stores/$store.getId()">$store.getName()</a></td>
-          <td><form action="/brands/$brand.getId()/unlinkstore" method="post">
-            <button name="unlink-store" class="btn btn-primary btn-sm" value="$store.getId()">
-              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </button>
-          </form></td>
-        </tr>
-      #end
-    </tbody>
-  </table>
-  <hr>
+  <div class="col-lg-offset-3 col-lg-6">
+    <h1>$brand.getName()</h1>
+    <h3>A list of stores that carry the $brand.getName():</h3>
+    <table class="table table-hover sortable" id="taskTable">
+      <tbody>
+        #foreach ($store in $brand.getStores())
+          <tr>
+            <td><a href="/stores/$store.getId()">$store.getName()</a></td>
+            <td><form action="/brands/$brand.getId()/unlinkstore" method="post">
+              <button name="unlink-store" class="btn btn-warning btn-sm" value="$store.getId()">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+            </form></td>
+          </tr>
+        #end
+      </tbody>
+    </table>
+    <hr>
 
-  <form action='/brands/$brand.getId()/addstore' method='post'>
-    <input id="addstore-brand-id" name="addstore-brand-id" type="hidden" value="$brand.getId()">
-    <label for="store_id">Select a store to add the $brand.getName() to:</label>
-    <select id='addstore-store-id' name='addstore-store-id' type='text'>
-      #foreach($store in $stores)
-        <option value="$store.getId()">$store.getName()</option>
-      #end
-    </select>
-    <button type='submit' class='btn btn-default addstorebtn'>Add Store</button>
-  </form>
-  <hr>
+    <form action='/brands/$brand.getId()/addstore' method='post'>
+      <input id="addstore-brand-id" name="addstore-brand-id" type="hidden" value="$brand.getId()">
+      <label for="store_id">Select a store to add the $brand.getName() to:</label>
+      <select id='addstore-store-id' name='addstore-store-id' type='text'>
+        #foreach($store in $stores)
+          <option value="$store.getId()">$store.getName()</option>
+        #end
+      </select>
+      <button type='submit' class='btn btn-success addstorebtn'>Add Store</button>
+    </form>
+    <hr>
 
-  <form action="/brands/$brand.getId()/update" method="post">
-    <div class="form-group">
+    <form action="/brands/$brand.getId()/update" method="post">
       <label for="update-brand-name">Update the name of this brand:</label>
-      <input id="update-brand-name" class="form-control" name="update-brand-name" type="text" placeholder="New Brand Name" required>
-    </div>
-    <button type="submit" class="btn btn-default brandupdatebtn">Update Name</button>
-  </form>
-  <hr>
+      <div class="input-group">
+        <input id="update-brand-name" class="form-control" name="update-brand-name" type="text" placeholder="New Brand Name" required>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-success storeupdatebtn">Submit</button>
+        </span>
+      </div>
+    </form>
+    <hr>
 
-  <form action="/brands/deletebrand" method="post">
-    <div class="form-group">
-      <input id="brand-id" class="form-control" name="brand-id" type="hidden" value="$brand.getId()">
-      <label for="brand-delete-btn">Delete the $brand.getName() from the database.</label>
-      <button type="submit" class="btn btn-danger deletebtn">Delete</button>
-    </div>
-  </form>
+    <form action="/brands/deletebrand" method="post">
+      <div class="form-group">
+        <input id="brand-id" class="form-control" name="brand-id" type="hidden" value="$brand.getId()">
+        <label for="brand-delete-btn">Delete the $brand.getName() from the database.</label>
+        <button type="submit" class="btn btn-danger deletebtn">Delete</button>
+      </div>
+    </form>
+  </div>
 </div>

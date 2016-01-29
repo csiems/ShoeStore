@@ -23,51 +23,54 @@
 </nav>
 
 <div class="container">
-  <h1>$store.getName()</h1>
-  <h3>A list of brands available at $store.getName():</h3>
-  <table class="table table-hover sortable" id="taskTable">
-    <tbody>
-      #foreach ($brand in $store.getBrands())
-        <tr>
-          <td><a href="/brands/$brand.getId()">$brand.getName()</a></td>
-          <td><form action="/stores/$store.getId()/unlinkbrand" method="post">
-            <button name="unlink-brand" class="btn btn-primary btn-sm" value="$brand.getId()">
-              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </button>
-          </form></td>
-        </tr>
-      #end
-    </tbody>
-  </table>
-  <hr>
+  <div class="col-lg-offset-3 col-lg-6">
+    <h1>$store.getName()</h1>
+    <h3>A list of brands available at $store.getName():</h3>
+    <table class="table table-hover sortable" id="taskTable">
+      <tbody>
+        #foreach ($brand in $store.getBrands())
+          <tr>
+            <td><a href="/brands/$brand.getId()">$brand.getName()</a></td>
+            <td><form action="/stores/$store.getId()/unlinkbrand" method="post">
+              <button name="unlink-brand" class="btn btn-warning btn-sm" value="$brand.getId()">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+            </form></td>
+          </tr>
+        #end
+      </tbody>
+    </table>
+    <hr>
 
-  <form action='/stores/$store.getId()/addbrand' method='post'>
-    <input id="addbrand-store-id" name="addbrand-store-id" type="hidden" value="$store.getId()">
-    <label for="addbrand-brand-id">Select a brand to add to this $store.getName():</label>
-    <select id='addbrand-brand-id' name='addbrand-brand-id' type='text'>
-      #foreach($brand in $brands)
-        <option value="$brand.getId()">$brand.getName()</option>
-      #end
-    </select>
-    <button type='submit' class='btn btn-default addbrandbtn'>Add Brand</button>
-  </form>
-  <hr>
+    <form action='/stores/$store.getId()/addbrand' method='post'>
+      <input id="addbrand-store-id" name="addbrand-store-id" type="hidden" value="$store.getId()">
+      <label for="addbrand-brand-id">Select a brand to add to this $store.getName():</label>
+      <select id='addbrand-brand-id' name='addbrand-brand-id' type='text'>
+        #foreach($brand in $brands)
+          <option value="$brand.getId()">$brand.getName()</option>
+        #end
+      </select>
+      <button type='submit' class='btn btn-success addbrandbtn'>Add Brand</button>
+    </form>
+    <hr>
 
-  <form action="/stores/$store.getId()/update" method="post">
-    <div class="form-group">
-      <label for="update-store-name">Update the name of this store:</label>
-      <input id="update-store-name" class="form-control" name="update-store-name" type="text" placeholder="New Store Name" required>
-    </div>
-    <button type="submit" class="btn btn-default storeupdatebtn">Submit</button>
-  </form>
-  <hr>
+    <form action="/stores/$store.getId()/update" method="post">
+      <label for="brand-name">Add a store to this list:</label>
+      <div class="input-group">
+        <input id="update-store-name" class="form-control" name="update-store-name" type="text" placeholder="New Store Name" required>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-success storeupdatebtn">Submit</button>
+        </span>
+      </div>
+    </form>
+    <hr>
 
-  <form action="/stores/deletestore" method="post">
-    <div class="form-group">
-      <input id="store-id" class="form-control" name="store-id" type="hidden" value="$store.getId()">
-      <label for="store-delete-btn">Delete the $store.getName() from the database.</label>
-      <button type="submit" class="btn btn-danger deletebtn">Delete</button>
-    </div>
-  </form>
-
+    <form action="/stores/deletestore" method="post">
+      <div class="form-group">
+        <input id="store-id" class="form-control" name="store-id" type="hidden" value="$store.getId()">
+        <label for="store-delete-btn">Delete $store.getName() from the database.</label>
+        <button type="submit" class="btn btn-danger deletebtn">Delete</button>
+      </div>
+    </form>
+  </div>
 </div>
