@@ -43,7 +43,7 @@ public class Store {
 
   public static Store find(int id) {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "SELECT id AS mId, name AS mName FROM stores WHERE id = :id";
+      String sql = "SELECT id AS mId, name AS mName FROM stores WHERE id = :id ORDER BY name ASC";
       return con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Store.class);
@@ -52,7 +52,7 @@ public class Store {
 
   public static List<Store> all() {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "SELECT id AS mId, name AS mName FROM stores";
+      String sql = "SELECT id AS mId, name AS mName FROM stores ORDER BY name ASC";
       return con.createQuery(sql).executeAndFetch(Store.class);
     }
   }
@@ -104,7 +104,8 @@ public class Store {
     try (Connection con = DB.sql2o.open()) {
       String sql = "SELECT brands.id AS mId, brands.name AS mName FROM brands " +
                    "INNER JOIN brands_stores ON (brands.id = brands_stores.brand_id) " +
-                   "INNER JOIN stores ON (brands_stores.store_id = stores.id) WHERE stores.id = :id";
+                   "INNER JOIN stores ON (brands_stores.store_id = stores.id) WHERE stores.id = :id " +
+                   "ORDER BY brands.name ASC";
       return con.createQuery(sql)
         .addParameter("id", mId)
         .executeAndFetch(Brand.class);
