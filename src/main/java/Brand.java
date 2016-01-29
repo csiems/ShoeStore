@@ -83,6 +83,16 @@ public class Brand {
     }
   }
 
+  public void unlink(int storeId) {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM brands_stores WHERE brand_id = :brand_id AND store_id = :store_id";
+      con.createQuery(sql)
+        .addParameter("brand_id", mId)
+        .addParameter("store_id", storeId)
+        .executeUpdate();
+    }
+  }
+
   public void add(int storeId) {
     boolean isDuplicate = false;
     for (Store store : this.getStores()) {

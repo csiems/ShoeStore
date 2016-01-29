@@ -47,6 +47,13 @@ public class App {
       return null;
     });
 
+    post("/stores/:id/unlinkbrand", (request, response) -> {
+      Store store = Store.find(Integer.parseInt(request.params("id")));
+      store.unlink(Integer.parseInt(request.queryParams("unlink-brand")));
+      response.redirect("/stores/" + store.getId());
+      return null;
+    });
+
     post("/stores/:id/update", (request, response) -> {
       Store store = Store.find(Integer.parseInt(request.params("id")));
       store.update(request.queryParams("update-store-name"));
@@ -86,6 +93,13 @@ public class App {
     post("/brands/:id/addstore", (request, response) -> {
       Brand brand = Brand.find(Integer.parseInt(request.queryParams("addstore-brand-id")));
       brand.add(Integer.parseInt(request.queryParams("addstore-store-id")));
+      response.redirect("/brands/" + brand.getId());
+      return null;
+    });
+
+    post("/brands/:id/unlinkstore", (request, response) -> {
+      Brand brand = Brand.find(Integer.parseInt(request.params("id")));
+      brand.unlink(Integer.parseInt(request.queryParams("unlink-store")));
       response.redirect("/brands/" + brand.getId());
       return null;
     });

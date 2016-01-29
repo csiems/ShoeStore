@@ -72,6 +72,16 @@ public class Store {
     }
   }
 
+  public void unlink(int brandId) {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM brands_stores WHERE brand_id = :brand_id AND store_id = :store_id";
+      con.createQuery(sql)
+        .addParameter("brand_id", brandId)
+        .addParameter("store_id", mId)
+        .executeUpdate();
+    }
+  }
+
   public void update(String name) {
     try (Connection con = DB.sql2o.open()) {
       String sql = "UPDATE stores SET name = :name WHERE id = :id";

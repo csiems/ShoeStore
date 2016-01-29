@@ -23,11 +23,19 @@
 </nav>
 
 <div class="container">
-  <h1>A list of stores that carry the $brand.getName():</h1>
+  <h1>$brand.getName()</h1>
+  <h3>A list of stores that carry the $brand.getName():</h3>
   <table class="table table-hover sortable" id="taskTable">
     <tbody>
       #foreach ($store in $brand.getStores())
-        <tr><td><a href="/stores/$store.getId()">$store.getName()</a></td></tr>
+        <tr>
+          <td><a href="/stores/$store.getId()">$store.getName()</a></td>
+          <td><form action="/brands/$brand.getId()/unlinkstore" method="post">
+            <button name="unlink-store" class="btn btn-primary btn-sm" value="$store.getId()">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+          </form></td>
+        </tr>
       #end
     </tbody>
   </table>
