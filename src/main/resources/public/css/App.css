@@ -37,3 +37,7 @@ h3 {
 .bold-p {
   font-weight: bold;
 }
+
+.addbrandbtn, .addstorebtn {
+  margin-left: 10px;
+}
