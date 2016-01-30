@@ -44,7 +44,7 @@
 
     <form action='/brands/$brand.getId()/addstore' method='post'>
       <input id="addstore-brand-id" name="addstore-brand-id" type="hidden" value="$brand.getId()">
-      <label for="store_id">Select a store to add the $brand.getName() to:</label>
+      <label for="addstore-store-id">Select a store to add the $brand.getName() to:</label>
       <div class="input-group">
         <select id='addstore-store-id' name='addstore-store-id' type='text'>
           #foreach($store in $stores)
@@ -52,7 +52,7 @@
           #end
         </select>
         <button type='submit' class='btn btn-success addstorebtn'>Add Store</button>
-      </div
+      </div>
     </form>
     <hr>
 
