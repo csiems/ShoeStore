@@ -20,8 +20,9 @@ The Shoe Stores! app will allow you to track your favorite shoe stores and creat
 `psql shoe_stores < shoe_stores.sql`
 * Alternately, you can build your own version of this database with the following commands in PSQL:
 `CREATE DATABASE shoe_stores;`
-`CREATE TABLE shoes (id serial PRIMARY KEY, name varchar);`
+`CREATE TABLE stores (id serial PRIMARY KEY, name varchar);`
 `CREATE TABLE brands (id serial PRIMARY KEY, name varchar);`
+`CREATE TABLE brands_stores (id serial PRIMARY KEY, brand_id int, store_id int)`
 * In the top level of the cloned directory, run the following command in your terminal:
 `gradle run`
 * Open your web browser of choice to localhost:4567
