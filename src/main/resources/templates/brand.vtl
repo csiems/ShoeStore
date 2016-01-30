@@ -42,18 +42,24 @@
     </table>
     <hr>
 
-    <form action='/brands/$brand.getId()/addstore' method='post'>
-      <input id="addstore-brand-id" name="addstore-brand-id" type="hidden" value="$brand.getId()">
-      <label for="addstore-store-id">Select a store to add the $brand.getName() to:</label>
-      <div class="input-group">
-        <select id='addstore-store-id' name='addstore-store-id' type='text'>
-          #foreach($store in $stores)
-            <option value="$store.getId()">$store.getName()</option>
-          #end
-        </select>
-        <button type='submit' class='btn btn-success addstorebtn'>Add Store</button>
+    #if ($stores.size() > 0)
+      <form action='/brands/$brand.getId()/addstore' method='post'>
+        <input id="addstore-brand-id" name="addstore-brand-id" type="hidden" value="$brand.getId()">
+        <label for="addstore-store-id">Select a store to add the $brand.getName() to:</label>
+        <div class="input-group">
+          <select id='addstore-store-id' name='addstore-store-id' type='text'>
+            #foreach($store in $stores)
+              <option value="$store.getId()">$store.getName()</option>
+            #end
+          </select>
+          <button type='submit' class='btn btn-success addstorebtn'>Add Store</button>
+        </div>
+      </form>
+    #else
+      <div class="bg-warning">
+        <p>Add some stores to the database!</p>
       </div>
-    </form>
+    #end
     <hr>
 
     <form action="/brands/$brand.getId()/update" method="post">
