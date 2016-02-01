@@ -44,7 +44,7 @@ public class Brand {
 
   public static Brand find(int id) {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "SELECT id AS mId, name AS mName FROM brands WHERE id = :id ORDER BY name ASC";
+      String sql = "SELECT id AS mId, name AS mName FROM brands WHERE id = :id";
       return con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Brand.class);
